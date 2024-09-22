@@ -2,19 +2,9 @@
 # NO TOUCH
 set $mod Mod4
 set $mods Shift
-exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id nm-applet
-exec --no-startup-id exec bluetoothctl connect 08:12:A5:E2:04:9F
-exec --no-startup-id exec setxkbmap us
-exec --no-startup-id /bin/power_mode.sh
-exec --no-startup-id numlockx on
-exec --no-startup-id picom -b
 exec --no-startup-id xinput set-prop "FTCS0038:00 2808:0106 Touchpad" "libinput Tapping Enabled" 1
 
 font pango:Source Code Pro for Powerline 11
-
-# bar { status_command SCRIPT_DIR=~/.dotfiles/.config/i3blocks/scripts i3blocks }
 
 exec_always feh --bg-scale ~/.dotfiles/.config/wallpaper.jpg
 
