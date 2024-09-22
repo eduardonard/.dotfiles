@@ -1,11 +1,15 @@
-
-what should be on .zshrc
+~/.zshrc
 ```bash
-source ~./.dotfiles
+source ~/.dotfiles
 ```
 
-define env
-
+```bash
+touch .env
+echo "env=personal" >> .env
+# or
+touch .env
+echo "env=personal" >> .env
+```
 
 run 
 ```bash
