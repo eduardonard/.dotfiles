@@ -1,4 +1,4 @@
-source ./env
+source ./.env
 
 ~/.dotfiles/.fzf/install
 
