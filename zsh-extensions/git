@@ -1,0 +1,38 @@
+# ! /bin/sh
+
+unction git_branch_name(){
+local git_branch
+  local git_status
+
+  # Check if the current directory is a Git repository
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    # Get the current branch name
+    git_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+    # Check for changes and ahead status
+    local git_status_clean
+    local git_status_ahead
+
+    git_status_clean=$(git status --porcelain 2>/dev/null)
+    git_status_ahead=$(git rev-list --count HEAD..@{upstream} 2>/dev/null)
+
+    # Default color is white
+    local git_color='%F{white}'
+
+    if [ -n "$git_status_clean" ]; then
+      # Uncommitted changes exist
+      git_color='%F{red}'
+    elif [ "$git_status_ahead" -gt 0 ]; then
+      # Ahead of upstream
+      git_color='%F{white}'
+    else
+      # Clean and not ahead
+      git_color='%F{green}'
+    fi
+
+    git_status="${git_color}(${git_branch})%f"
+  fi
+
+  # Return the Git status info
+  echo "$git_status%F{white}"
+}
