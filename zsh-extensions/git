@@ -1,3 +1,5 @@
+# ! /bin/sh
+
 unction git_branch_name(){
 local git_branch
   local git_status
