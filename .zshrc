@@ -1,7 +1,7 @@
 echo "Loading .zshrc"
 source ~/.dotfiles/.env
 
-for file in ~/.dotfiles/zsh-extensions/*; do
+for file in ~/.dotfiles/zsh-ext/*; do
     if [[ -f "$file" && -r "$file" ]]; then
         source "$file"
     fi
@@ -9,7 +9,7 @@ done
 
 
 if [ "$env" = "work" ]; then
-    for file in ~/.dotfiles/zsh-extensions/work/*; do
+    for file in ~/.dotfiles/zsh-ext/work/*; do
         if [[ -f "$file" && -r "$file" ]]; then
             source "$file"
         fi
