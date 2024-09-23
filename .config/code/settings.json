@@ -23,7 +23,7 @@
   "workbench.tree.renderIndentGuides": "always",
   "workbench.tree.indent": 20,
   "workbench.iconTheme": "vscode-icons",
-  "workbench.colorTheme": "Theme Ocean High Contrast Dark+",
+  "workbench.colorTheme": "GitHub Dark High Contrast",
 
   // Explorer Settings
   "explorer.confirmDragAndDrop": false,
