@@ -29,6 +29,7 @@ source ~/.dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Fuzzyfinder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
+source ~/.dotfiles/zsh-ext/fzf-git.sh
 
 # PROMPT
 setopt prompt_subst
