@@ -1,4 +1,4 @@
-# ! /bin/sh
+#!/bin/sh
 
 git_branch_name() {
   local git_branch
@@ -19,14 +19,22 @@ git_branch_name() {
     local git_status_behind
     local git_merge_conflict
     local git_rebase
-    local git_unstaged_changes
+    local git_unstaged_changes_count
+    local git_staged_changes_count
+    local git_unpushed_commits_count
 
     git_status_clean=$(git status --porcelain 2>/dev/null)
     git_status_ahead=$(git rev-list --count HEAD..@{upstream} 2>/dev/null)
     git_status_behind=$(git rev-list --count @{upstream}..HEAD 2>/dev/null)
 
-    # Check if there are unstaged changes
-    git_unstaged_changes=$(git status --porcelain | grep '^.[^ ]' 2>/dev/null)
+    # Count unstaged changes
+    git_unstaged_changes_count=$(git status --porcelain | grep '^.[^ ]' | wc -l)
+
+    # Count staged changes (not committed)
+    git_staged_changes_count=$(git diff --cached --name-only | wc -l)
+
+    # Count unpushed commits
+    git_unpushed_commits_count=$(git rev-list --count @{upstream}..HEAD 2>/dev/null)
 
     # Check if there is an ongoing merge
     git_merge_conflict=$(git ls-files -u 2>/dev/null)
@@ -47,27 +55,31 @@ git_branch_name() {
       git_color='%F{yellow}'
       status_text="REBASE"
     elif [ -n "$git_status_clean" ]; then
-      if [ -n "$git_unstaged_changes" ]; then
+      if [ "$git_unstaged_changes_count" -gt 0 ]; then
         # Unstaged changes exist
         git_color='%F{red}'
-        status_text="UNSTAGED"
+        status_text="UNSTAGED ($git_unstaged_changes_count)"
+      elif [ "$git_staged_changes_count" -gt 0 ]; then
+        # Staged changes exist (not yet committed)
+        git_color='%F{orange}'
+        status_text="STAGED ($git_staged_changes_count)"
       else
-        # Uncommitted (staged) changes exist
-        git_color='%F{red}'
-        status_text="STAGED"
+        # Clean and up-to-date with no staged or unstaged changes
+        git_color='%F{green}'
+        status_text="CLEAN"
       fi
     elif [ "$git_status_ahead" -gt 0 ] && [ "$git_status_behind" -gt 0 ]; then
       # Branch is both ahead and behind (diverged)
       git_color='%F{blue}'
-      status_text="DIVERGED"
+      status_text="DIVERGED (AHEAD: $git_status_ahead, BEHIND: $git_status_behind)"
     elif [ "$git_status_ahead" -gt 0 ]; then
-      # Branch is ahead of upstream
+      # Branch is ahead of upstream (with unpushed commits)
       git_color='%F{cyan}'
-      status_text="AHEAD"
+      status_text="AHEAD ($git_unpushed_commits_count unpushed)"
     elif [ "$git_status_behind" -gt 0 ]; then
-      # Branch is behind upstream
+      # Branch is behind upstream (showing how many commits behind)
       git_color='%F{yellow}'
-      status_text="BEHIND"
+      status_text="BEHIND ($git_status_behind commits)"
     else
       # Clean and up-to-date
       git_color='%F{green}'

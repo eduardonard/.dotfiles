@@ -15,6 +15,7 @@ if [ "$env" = "personal" ]; then
   alias settings="gnome-control-center"
   alias restart-audio="pulseaudio -k && alsa force-reload"
   alias bat="batcat"
+  alias l="ls -la"
   alias lsla="ls -la"
 fi
 
