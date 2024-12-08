@@ -86,7 +86,7 @@ git_branch_name() {
       status_text="CLEAN"
     fi
 
-    git_status="${git_color}[repo: ${project_name}] [br: ${git_branch}] [sts: ${status_text}]%f"
+    git_status="${git_color}[${git_branch}][${status_text}]%f"
   fi
 
   # Return the Git status info
