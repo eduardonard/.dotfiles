@@ -8,9 +8,9 @@ rm -rf ~/.dotfiles/zsh-autosuggestions/.git
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.dotfiles/zsh-syntax-highlighting
 rm -rf ~/.dotfiles/zsh-syntax-highlighting.git/.git
 
-sudo apt install bat
 
-echo "Set gnome terminal to use zsh"
+echo "Setting gnome terminal to use zsh"
 chsh -s $(which zsh)
+echo "Setted"
 
-echo "run source ~/.dotfiles/.zshrc >> ~/.zshrc"
+source ~/.dotfiles/.zshrc >> ~/.zshrc
