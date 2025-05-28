@@ -9,8 +9,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.dotfiles/z
 rm -rf ~/.dotfiles/zsh-syntax-highlighting.git/.git
 
 
-echo "Setting gnome terminal to use zsh"
-chsh -s $(which zsh)
-echo "Setted"
+echo "source ~/.dotfiles/.zshrc" >> ~/.zshrc
 
-source ~/.dotfiles/.zshrc >> ~/.zshrc
+echo "Done!"
